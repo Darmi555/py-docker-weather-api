@@ -10,18 +10,22 @@ def get_weather() -> None:
         return
 
     city = "Paris"
-    url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
+    url = (f"http://api.weatherapi.com/v1/current.json?key="  # noqa: E231
+           f"{api_key}&q={city}")
 
     request = requests.get(url)
     data = request.json()
 
-    city = data["location"]["name"]
     country = data["location"]["country"]
     current_time = data["location"]["localtime"]
     celsius = data["current"]["temp_c"]
     weather_description = data["current"]["condition"]["text"]
 
-    print(f"{city}/{country} {current_time} Weather: {celsius} Celsius, {weather_description}")
+    print(
+        f"{city}/{country} {current_time} "
+        f"Weather: {celsius} Celsius, {weather_description}"
+    )
+
 
 if __name__ == "__main__":
     get_weather()
